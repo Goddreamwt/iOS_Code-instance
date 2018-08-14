@@ -1,0 +1,124 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fnil\fcharset134 PingFangSC-Regular;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red60\green67\blue75;\red255\green255\blue255;\red48\green111\blue121;
+\red0\green0\blue0;\red180\green0\blue98;\red46\green13\blue110;\red29\green133\blue25;\red32\green60\blue63;
+\red186\green0\blue17;\red77\green0\blue158;\red100\green56\blue32;\red92\green38\blue153;\red0\green11\blue255;
+}
+{\*\expandedcolortbl;;\cssrgb\c30196\c33333\c36471;\cssrgb\c100000\c100000\c100000;\csgenericrgb\c18769\c43699\c47289;
+\csgenericrgb\c0\c0\c0;\csgenericrgb\c70682\c0\c38264;\csgenericrgb\c18100\c5200\c43100;\csgenericrgb\c11489\c52197\c9852;\csgenericrgb\c12359\c23384\c24757;
+\csgenericrgb\c72768\c0\c6662;\csgenericrgb\c30278\c0\c61966;\csgenericrgb\c39100\c22000\c12500;\csgenericrgb\c35900\c14900\c60100;\csgenericrgb\c0\c4459\c99822;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16300\viewh13140\viewkind0
+\deftab720
+\pard\pardeftab720\sl560\partightenfactor0
+
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\'b1\'ca\'bc\'c7\'b5\'da\'d2\'bb\'c6\'aa-iOS\'d6\'aeReactiveCocoa\'bf\'f2\'bc\'dc\'a3\'a8RAC\'a3\'a9
+\f1\fs36 \cf4 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 RACSignal
+\f0 \'b3\'f5\'ca\'bc\'bb\'af\'a3\'ac\'ca\'c2\'bc\'fe\'b0\'f3\'b6\'a8
+\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\
+\'bc\'f2\'bd\'e9\'a3\'baReactiveCocoa\'ce\'aa\'ca\'c2\'bc\'fe\'cc\'e1\'b9\'a9\'c1\'cb\'ba\'dc\'b6\'e0\'b4\'a6\'c0\'ed\'b7\'bd\'b7\'a8\'a3\'ac\'b6\'f8\'c7\'d2\'c0\'fb\'d3\'c3RAC\'b4\'a6\'c0\'ed\'ca\'c2\'bc\'fe\'ba\'dc\'b7\'bd\'b1\'e3\'a3\'ac\'bf\'c9\'d2\'d4\'b0\'d1\'d2\'aa\'b4\'a6\'c0\'ed\'b5\'c4\'ca\'c2\'c7\'e9\'ba\'cd\'bc\'e0\'cc\'fd\'b5\'c4\'ca\'c2\'c7\'e9\'b5\'c4\'b4\'fa\'c2\'eb\'b7\'c5\'d4\'da\'d2\'bb\'c6\'f0\'a3\'ac\'d5\'e2\'d1\'f9\'b7\'c7\'b3\'a3\'b7\'bd\'b1\'e3\'ce\'d2\'c3\'c7\'b9\'dc\'c0\'ed\'a3\'ac\'be\'cd\'b2\'bb\'d0\'e8\'d2\'aa\'cc\'f8\'b5\'bd\'b6\'d4\'d3\'a6\'b5\'c4\'b7\'bd\'b7\'a8\'c0\'ef\'a1\'a3\'b6\'f8\'b1\'be\'c3\'c5\'bf\'ce\'b3\'cc\'be\'cd\'bb\'e1\'bd\'cc\'b4\'f3\'bc\'d2\'c8\'e7\'ba\'ce\'c1\'e9\'bb\'ee\'d4\'cb\'d3\'c3ReactiveCocoa\'a1\'a3\
+\
+RAC\'c9\'e8\'bc\'c6\'c4\'a3\'ca\'bd\
+RAC\'d0\'c5\'ba\'c5\'c1\'bf\'b5\'c4\'cd\'b3\'d2\'bb\
+\pard\tx890\pardeftab890\pardirnatural\partightenfactor0
+
+\f1\fs36 \cf5 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 - (\cf6 void\cf5 )viewDidLoad \{\
+    [\cf6 super\cf5  \cf7 viewDidLoad\cf5 ];\
+    \cf8 // Do any additional setup after loading the view, typically from a nib.\cf5 \
+\
+    \cf8 /*\
+     ReactiveCocoa
+\f0 \'bf\'f2\'bc\'dc\'b7\'bd\'ca\'bd
+\f1 \
+     */\cf5 \
+    \cf8 //
+\f0 \'d0\'c5\'ba\'c5\'c1\'bf
+\f1 \cf5 \
+    \cf4 RACSignal\cf5  * viewDidAppearSiganl =[\cf6 self\cf5  \cf9 rac_signalForSelector\cf5 :\cf6 @selector\cf5 (viewDidAppear:)];\
+    \
+    [viewDidAppearSiganl \cf9 subscribeNext\cf5 :^(\cf6 id\cf5  x) \{\
+        \cf8 //
+\f0 \'bb\'e1\'d4\'da\'c3\'bf\'b4\'ce
+\f1 viewDidAppear
+\f0 \'b5\'f7\'d3\'c3\'b5\'c4\'ca\'b1\'ba\'f2\'a3\'ac\'d6\'b4\'d0\'d0
+\f1 \cf5 \
+        \cf7 NSLog\cf5 (\cf10 @"
+\f0 \'b4\'f2\'d3\'a1\'c8\'d5\'d6\'be\'a3\'ba
+\f1 viewDidAppearSiganl-%s"\cf5 ,\cf6 __func__\cf5 );\
+        \cf7 NSLog\cf5 (\cf10 @"
+\f0 \'b4\'f2\'d3\'a1\'c8\'d5\'d6\'be\'a3\'ba\'b2\'ce\'ca\'fd
+\f1 -%@"\cf5 ,x);\
+    \}];\
+    \
+    [viewDidAppearSiganl \cf9 subscribeError\cf5 :^(\cf11 NSError\cf5  *error) \{\
+        \cf8 //
+\f0 \'b6\'a9\'d4\'c4\'b4\'ed\'ce\'f3
+\f1 \cf5 \
+        \
+    \}];\
+    \
+    [viewDidAppearSiganl \cf9 subscribeCompleted\cf5 :^\{\
+        \
+        \cf8 //
+\f0 \'b6\'a9\'d4\'c4\'cd\'ea\'b3\'c9\'d7\'b4\'cc\'ac
+\f1 \cf5 \
+    \}];\
+    \
+    \cf11 UIButton\cf5  * button =[\cf11 UIButton\cf5  \cf7 buttonWithType\cf5 :\cf7 UIButtonTypeSystem\cf5 ];\
+    [button \cf9 setRac_command\cf5 :[[\cf4 RACCommand\cf5  \cf7 alloc\cf5 ] \cf9 initWithEnabled\cf5 :\cf6 nil\cf5  \cf9 signalBlock\cf5 :^\cf4 RACSignal\cf5  *(\cf6 id\cf5  input) \{\
+        \
+        \cf6 return\cf5  [\cf4 RACSignal\cf5  \cf9 createSignal\cf5 :^\cf4 RACDisposable\cf5  *(\cf6 id\cf5 <\cf4 RACSubscriber\cf5 > subscriber) \{\
+            \cf7 NSLog\cf5 (\cf10 @"Clicked"\cf5 );\
+\
+\cf8 //            
+\f0 \'b2\'e2\'ca\'d4\'d2\'ec\'b2\'bd\'b2\'d9\'d7\'f7
+\f1 \cf5 \
+            \cf7 dispatch_after\cf5 (\cf7 dispatch_time\cf5 (\cf12 DISPATCH_TIME_NOW\cf5 , (\cf13 int64_t\cf5 )(\cf14 3.0\cf5  * \cf12 NSEC_PER_SEC\cf5 )), \cf7 dispatch_get_main_queue\cf5 (), ^\{\
+                \
+                [subscriber \cf9 sendNext\cf5 :[[\cf11 NSDate\cf5  \cf7 date\cf5 ] \cf7 description\cf5 ]];\cf8 //
+\f0 \'b7\'b5\'bb\'d8\'b8\'f8\'b5\'b1\'c7\'b0\'b5\'c4\'ca\'b1\'bc\'e4\'b8\'f8\'b6\'a9\'d4\'c4\'d5\'df
+\f1 \cf5 \
+                [subscriber \cf9 sendCompleted\cf5 ];\cf8 //
+\f0 \'b5\'f7\'d3\'c3
+\f1 sendCompleted
+\f0 \'c0\'b4\'bd\'e1\'ca\'f8\'d5\'e2\'b4\'ce\'b0\'b4\'bc\'fc\'b5\'c4\'b2\'d9\'d7\'f7
+\f1 \cf5 \
+            \});\
+            \cf6 return\cf5  [\cf4 RACDisposable\cf5  \cf9 disposableWithBlock\cf5 :^\{\
+                \
+                \
+            \}];\
+        \}];\
+    \}]];\
+    [[[button \cf9 rac_command\cf5 ] \cf9 executionSignals\cf5 ] \cf9 subscribeNext\cf5 :^(\cf6 id\cf5  x) \{\
+        \
+        [x \cf9 subscribeNext\cf5 :^(\cf6 id\cf5  x) \{\
+            \
+            \cf7 NSLog\cf5 (\cf10 @"%@"\cf5 ,x);\
+        \}];\
+    \}];\
+    \
+    [button \cf7 setTitle\cf5 :\cf10 @"
+\f0 \'b5\'e3\'ce\'d2
+\f1 "\cf5  \cf7 forState\cf5 :\cf7 UIControlStateNormal\cf5 ];\
+    [button \cf7 setBounds\cf5 :\cf7 CGRectMake\cf5 (\cf14 0\cf5 , \cf14 0\cf5 , \cf14 100\cf5 , \cf14 200\cf5 )];\
+    [\cf6 self\cf5 .\cf13 view\cf5  \cf7 addSubview\cf5 :button];\
+    [button \cf7 setCenter\cf5 :\cf7 CGPointMake\cf5 (\cf6 self\cf5 .\cf13 view\cf5 .\cf13 frame\cf5 .\cf13 size\cf5 .\cf13 width\cf5 /\cf14 2\cf5 , \cf6 self\cf5 .\cf13 view\cf5 .\cf13 frame\cf5 .\cf13 size\cf5 .\cf13 height\cf5 /\cf14 2\cf5 )];\
+\}\
+\
+-(\cf6 void\cf5 )viewDidAppear:(\cf6 BOOL\cf5 )animated\{\
+    [\cf6 super\cf5  \cf7 viewDidAppear\cf5 :animated];\
+    \
+    [\cf6 self\cf5  \cf7 setNeedsStatusBarAppearanceUpdate\cf5 ];\
+    \cf7 NSLog\cf5 (\cf10 @"
+\f0 \'b4\'f2\'d3\'a1\'c8\'d5\'d6\'be\'a3\'ba
+\f1 %s"\cf5 ,\cf6 __func__\cf5 );\
+\}
+\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\
+ReactiveCocoa\'ca\'b5\'c0\'fd\'d6\'ae\'b5\'c7\'c2\'bc\
+}
