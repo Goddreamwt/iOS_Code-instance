@@ -22,8 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self configBugly];
-    
-    [UncaughtExceptionHandler installUncaughtExceptionHandler:YES showAlert:YES];
+     [UncaughtExceptionHandler installUncaughtExceptionHandler:YES showAlert:YES];
     return YES;
 }
 - (void)configBugly {

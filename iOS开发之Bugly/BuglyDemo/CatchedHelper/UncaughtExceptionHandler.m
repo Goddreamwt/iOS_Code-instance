@@ -10,11 +10,13 @@
 #include <libkern/OSAtomic.h>
 #include <execinfo.h>
 
-NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";
+NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";//未捕获的异常处理程序信号异常名称
 NSString * const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";
 NSString * const UncaughtExceptionHandlerAddressesKey = @"UncaughtExceptionHandlerAddressesKey";
 
+//捕获的异常的数量
 volatile int32_t UncaughtExceptionCount = 0;
+//捕获的异常的最大数量
 const int32_t UncaughtExceptionMaximum = 10;
 
 static BOOL showAlertView = nil;
@@ -40,14 +42,28 @@ NSString* getAppInfo(void);
     if (install && showAlert) {
         [[self alloc] alertView:showAlert];
     }
-    
+    //1.发送异常信号
     NSSetUncaughtExceptionHandler(install ? HandleException : NULL);
+    //FOUNDATION_EXPORT void NSSetUncaughtExceptionHandler(NSUncaughtExceptionHandler * _Nullable);
+    //typedef void NSUncaughtExceptionHandler(NSException *exception);
+    /*
+     @interface NSException : NSObject <NSCopying, NSCoding> {
+     @private
+     NSString        *name;
+     NSString        *reason;
+     NSDictionary    *userInfo;
+     id            reserved;
+     }
+     */
     signal(SIGABRT, install ? SignalHandler : SIG_DFL);
     signal(SIGILL, install ? SignalHandler : SIG_DFL);
     signal(SIGSEGV, install ? SignalHandler : SIG_DFL);
     signal(SIGFPE, install ? SignalHandler : SIG_DFL);
     signal(SIGBUS, install ? SignalHandler : SIG_DFL);
     signal(SIGPIPE, install ? SignalHandler : SIG_DFL);
+    
+    //产生上述的signal的时候就会调用我们定义的SignalHandler来处理异常。
+    //NSSetUncaughtExceptionHandler就是iOS SDK中提供的一个现成的函数,用来捕获异常的方法，使用方便。但它不能捕获抛出的signal，所以定义了SignalHandler方法。
 }
 
 - (void)alertView:(BOOL)show {
@@ -55,6 +71,31 @@ NSString* getAppInfo(void);
     showAlertView = show;
 }
 
+
+//点击退出
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+- (void)alertView:(UIAlertView *)anAlertView clickedButtonAtIndex:(NSInteger)anIndex {
+#pragma clang diagnostic pop
+    
+    if (anIndex == 0) {
+        
+        self.dismissed = YES;
+    }
+}
+
+//处理报错信息
+- (void)validateAndSaveCriticalApplicationData:(NSException *)exception {
+    
+    
+    NSString *exceptionInfo = [NSString stringWithFormat:@"\n--------Log Exception---------\nappInfo             :\n%@\n\nexception name      :%@\nexception reason    :%@\nexception userInfo  :%@\ncallStackSymbols    :%@\n\n--------End Log Exception-----", getAppInfo(),exception.name, exception.reason, exception.userInfo ? : @"no user info", [exception callStackSymbols]];
+    
+    NSLog(@"%@", exceptionInfo);
+    //	[exceptionInfo writeToFile:[NSString stringWithFormat:@"%@/Documents/error.log",NSHomeDirectory()]  atomically:YES encoding:NSUTF8StringEncoding error:nil];
+}
+
+//4.堆栈调用
+//backtrace是Linux下用来追踪函数调用堆栈以及定位段错误的函数。
 //获取调用堆栈
 + (NSArray *)backtrace {
     
@@ -79,29 +120,8 @@ NSString* getAppInfo(void);
     
     return backtrace;
 }
-
-//点击退出
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-- (void)alertView:(UIAlertView *)anAlertView clickedButtonAtIndex:(NSInteger)anIndex {
-#pragma clang diagnostic pop
-    
-    if (anIndex == 0) {
-        
-        self.dismissed = YES;
-    }
-}
-
-//处理报错信息
-- (void)validateAndSaveCriticalApplicationData:(NSException *)exception {
-    
-    
-    NSString *exceptionInfo = [NSString stringWithFormat:@"\n--------Log Exception---------\nappInfo             :\n%@\n\nexception name      :%@\nexception reason    :%@\nexception userInfo  :%@\ncallStackSymbols    :%@\n\n--------End Log Exception-----", getAppInfo(),exception.name, exception.reason, exception.userInfo ? : @"no user info", [exception callStackSymbols]];
-    
-    NSLog(@"%@", exceptionInfo);
-    //	[exceptionInfo writeToFile:[NSString stringWithFormat:@"%@/Documents/error.log",NSHomeDirectory()]  atomically:YES encoding:NSUTF8StringEncoding error:nil];
-}
-
+//5.使用UIAlerView进行友好化提示
+//在这里你可以做自己的crash收集操作，例如上传服务器等。
 - (void)handleException:(NSException *)exception {
     
     [self validateAndSaveCriticalApplicationData:exception];
@@ -114,8 +134,8 @@ NSString* getAppInfo(void);
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     UIAlertView *alert =
     [[UIAlertView alloc]
-     initWithTitle:@"出错啦"
-     message:[NSString stringWithFormat:@"你可以尝试继续操作，但是应用可能无法正常运行.\n"]
+     initWithTitle:@"程序异常"
+     message:[NSString stringWithFormat:@"您可以继续操作，或者退出重新进入，此异常已经记录在案，我们将尽快修复！感谢您的使用！.\n"]
      delegate:self
      cancelButtonTitle:@"退出"
      otherButtonTitles:@"继续", nil];
@@ -153,10 +173,12 @@ NSString* getAppInfo(void);
         [exception raise];
     }
 }
+
 @end
 
 
-
+//2.处理异常
+//该方法就是对应NSSetUncaughtExceptionHandler的处理，只要方法关联到这个函数，那么发生相应错误时会自动调用该函数，调用时会传入exception参数。获取异常后会将捕获的异常传入最终调用处理的handleException函数。
 void HandleException(NSException *exception) {
     
     
@@ -183,7 +205,7 @@ void HandleException(NSException *exception) {
     
  
 }
-
+//3.无法捕获的signal处理
 //处理signal报错
 void SignalHandler(int signal) {
     
@@ -192,7 +214,7 @@ void SignalHandler(int signal) {
     if (exceptionCount > UncaughtExceptionMaximum) {
         return;
     }
-    
+    //以下方法是对于捕获不到的signal信号进行处理，列出常见的异常类型。
     NSString* description = nil;
     switch (signal) {
         case SIGABRT:
