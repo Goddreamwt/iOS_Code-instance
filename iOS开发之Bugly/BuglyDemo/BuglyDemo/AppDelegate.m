@@ -11,6 +11,8 @@
 #import <BuglyHotfix/BuglyMender.h>
 #import "JPEngine.h"
 
+#import "UncaughtExceptionHandler.h"
+
 @interface AppDelegate ()<BuglyDelegate>
 
 @end
@@ -20,6 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self configBugly];
+    
+    [UncaughtExceptionHandler installUncaughtExceptionHandler:YES showAlert:YES];
     return YES;
 }
 - (void)configBugly {
