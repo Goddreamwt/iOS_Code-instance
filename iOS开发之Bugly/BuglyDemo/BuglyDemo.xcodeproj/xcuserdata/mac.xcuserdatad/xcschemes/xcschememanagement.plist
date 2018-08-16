@@ -7,7 +7,25 @@
 		<key>BuglyDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>10</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>04EE56432122CA9D00D74017</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>04EE565B2122CAAC00D74017</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>04EE56662122CAAC00D74017</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

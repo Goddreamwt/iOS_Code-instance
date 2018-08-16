@@ -9,6 +9,7 @@
 #import "UncaughtExceptionHandler.h"
 #include <libkern/OSAtomic.h>
 #include <execinfo.h>
+#import "WTAlertController.h"
 
 NSString * const UncaughtExceptionHandlerSignalExceptionName = @"UncaughtExceptionHandlerSignalExceptionName";//未捕获的异常处理程序信号异常名称
 NSString * const UncaughtExceptionHandlerSignalKey = @"UncaughtExceptionHandlerSignalKey";
@@ -28,6 +29,7 @@ NSString* getAppInfo(void);
 
 @interface UncaughtExceptionHandler()
 @property (assign, nonatomic) BOOL dismissed;
+@property (strong, nonatomic) UIAlertController *alertController;
 @end
 
 @implementation UncaughtExceptionHandler
@@ -65,23 +67,12 @@ NSString* getAppInfo(void);
     //产生上述的signal的时候就会调用我们定义的SignalHandler来处理异常。
     //NSSetUncaughtExceptionHandler就是iOS SDK中提供的一个现成的函数,用来捕获异常的方法，使用方便。但它不能捕获抛出的signal，所以定义了SignalHandler方法。
 }
-
+-(void)dealloc{
+    NSLog(@"执行了");
+}
 - (void)alertView:(BOOL)show {
     
     showAlertView = show;
-}
-
-
-//点击退出
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-- (void)alertView:(UIAlertView *)anAlertView clickedButtonAtIndex:(NSInteger)anIndex {
-#pragma clang diagnostic pop
-    
-    if (anIndex == 0) {
-        
-        self.dismissed = YES;
-    }
 }
 
 //处理报错信息
@@ -132,14 +123,26 @@ NSString* getAppInfo(void);
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    UIAlertView *alert =
-    [[UIAlertView alloc]
-     initWithTitle:@"程序异常"
-     message:[NSString stringWithFormat:@"您可以继续操作，或者退出重新进入，此异常已经记录在案，我们将尽快修复！感谢您的使用！.\n"]
-     delegate:self
-     cancelButtonTitle:@"退出"
-     otherButtonTitles:@"继续", nil];
-    [alert show];
+
+    self.alertController = [WTAlertController alertControllerWithTitle:@"程序异常"
+                                                                             message:[NSString stringWithFormat:@"您可以继续操作，或者退出重新进入，此异常已经记录在案，我们将尽快修复！感谢您的使用！.\n"]
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+       
+         self.dismissed = YES;
+    }];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *action) {
+                                         
+                         NSLog(@"点击继续");
+                                                         }];
+    
+    [self.alertController addAction:cancelAction];
+    [self.alertController addAction:deleteAction];
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    [rootViewController presentViewController:self.alertController animated:NO completion:nil];
+    
 #pragma clang diagnostic pop
     
     CFRunLoopRef runLoop = CFRunLoopGetCurrent();

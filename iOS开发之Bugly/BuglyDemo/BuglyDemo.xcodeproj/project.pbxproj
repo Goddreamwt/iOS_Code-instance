@@ -10,6 +10,7 @@
 		040FAEF42123FD9B00746C87 /* JPEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FAEF22123FD9A00746C87 /* JPEngine.m */; };
 		040FAEF52123FD9B00746C87 /* JSPatch.js in Resources */ = {isa = PBXBuildFile; fileRef = 040FAEF32123FD9A00746C87 /* JSPatch.js */; };
 		040FAEF9212408C500746C87 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FAEF8212408C400746C87 /* UncaughtExceptionHandler.m */; };
+		040FAEFF212523D600746C87 /* WTAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040FAEFE212523D600746C87 /* WTAlertController.m */; };
 		04EE56492122CA9D00D74017 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EE56482122CA9D00D74017 /* AppDelegate.m */; };
 		04EE564C2122CA9D00D74017 /* $.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EE564B2122CA9D00D74017 /* $.m */; };
 		04EE564F2122CA9D00D74017 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04EE564D2122CA9D00D74017 /* Main.storyboard */; };
@@ -45,6 +46,8 @@
 		040FAEF32123FD9A00746C87 /* JSPatch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = JSPatch.js; sourceTree = "<group>"; };
 		040FAEF7212408C400746C87 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		040FAEF8212408C400746C87 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
+		040FAEFD212523D600746C87 /* WTAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTAlertController.h; sourceTree = "<group>"; };
+		040FAEFE212523D600746C87 /* WTAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WTAlertController.m; sourceTree = "<group>"; };
 		04EE56442122CA9D00D74017 /* BuglyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuglyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04EE56472122CA9D00D74017 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04EE56482122CA9D00D74017 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -115,7 +118,6 @@
 			isa = PBXGroup;
 			children = (
 				040FAEF6212408C400746C87 /* CatchedHelper */,
-				040FAEEF2123FB1D00746C87 /* BuglyDemo-Prefix.pch */,
 				040FAEF02123FD9A00746C87 /* JSPatch */,
 				04EE56462122CA9D00D74017 /* BuglyDemo */,
 				04EE565F2122CAAC00D74017 /* BuglyDemoTests */,
@@ -139,6 +141,9 @@
 		04EE56462122CA9D00D74017 /* BuglyDemo */ = {
 			isa = PBXGroup;
 			children = (
+				040FAEFD212523D600746C87 /* WTAlertController.h */,
+				040FAEFE212523D600746C87 /* WTAlertController.m */,
+				040FAEEF2123FB1D00746C87 /* BuglyDemo-Prefix.pch */,
 				04EE56472122CA9D00D74017 /* AppDelegate.h */,
 				04EE56482122CA9D00D74017 /* AppDelegate.m */,
 				04EE564A2122CA9D00D74017 /* ViewController.h */,
@@ -377,6 +382,7 @@
 				04EE564C2122CA9D00D74017 /* $.m in Sources */,
 				040FAEF9212408C500746C87 /* UncaughtExceptionHandler.m in Sources */,
 				040FAEF42123FD9B00746C87 /* JPEngine.m in Sources */,
+				040FAEFF212523D600746C87 /* WTAlertController.m in Sources */,
 				04EE56572122CAAC00D74017 /* main.m in Sources */,
 				04EE56492122CA9D00D74017 /* AppDelegate.m in Sources */,
 			);
@@ -551,7 +557,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/mac/Desktop/GitHub/iOS_Code-instance/iOS开发之Bugly/BuglyDemo/BuglyDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "/Users/mac/Desktop/GitHub/iOS_Code-instance/iOS开发之Bugly/BuglyDemo/BuglyDemo/BuglyDemo-Prefix.pch";
 				INFOPLIST_FILE = BuglyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,7 +576,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "/Users/mac/Desktop/GitHub/iOS_Code-instance/iOS开发之Bugly/BuglyDemo/BuglyDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "/Users/mac/Desktop/GitHub/iOS_Code-instance/iOS开发之Bugly/BuglyDemo/BuglyDemo/BuglyDemo-Prefix.pch";
 				INFOPLIST_FILE = BuglyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
